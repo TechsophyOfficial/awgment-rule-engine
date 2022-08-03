@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1" name="Definitions_1" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="Decision_1" name="Decision 1">
+    <decisionTable id="DecisionTable_014m7wx" hitPolicy="FIRST">
+      <input id="Input_1" label="cibil" biodi:width="192" camunda:inputVariable="cibil">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="risk_score" typeRef="integer" />
+      <rule id="DecisionRule_0a0v14p">
+        <inputEntry id="UnaryTests_11fxzsi">
+          <text>&gt; 700</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k3sh69">
+          <text>5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k4ktvj">
+        <inputEntry id="UnaryTests_0f3fap3">
+          <text>&lt;= 700</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wtmhnm">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_1">
+        <dc:Bounds height="80" width="180" x="180" y="130" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

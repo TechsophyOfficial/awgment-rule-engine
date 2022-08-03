@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rules
+  namespace: dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: rules
+  template:
+    metadata:
+      labels:
+        name: rules
+    spec:
+      containers:
+      - image: tsdevopsteam/platform:dmn-service-$BUILD_NUMBER
+        name: rules
+        envFrom:
+        - configMapRef:
+            name: dmnservice-env
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: ts-platform
+        
+      
+      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rules
+  namespace: dev
+spec:
+  type: ClusterIP
+  ports: 
+  - port: 8080
+  selector:
+    name: rules

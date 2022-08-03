@@ -1,0 +1,8 @@
+spring.application.name: tp-rule-engine
+spring.profiles.active: dev
+spring.cloud.config.uri: ${GATEWAY_URI}/config-server
+management.endpoints.web.exposure.include: refresh
+management.endpoints.web.base-path: /rules
+management.endpoints.web.path-mapping.refresh: refresh
+
+
