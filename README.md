@@ -1,6 +1,6 @@
 
 # dmn-service
-# tp-rule-engine
+# awgment-rule-engine
 ## About The Project
 Rules engines or inference engines serve as pluggable software components which execute business rules that a business rules approach has externalized or separated from application code.
 
