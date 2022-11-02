@@ -47,15 +47,15 @@ configurations {
 }
 
 jib {
-	container {
-		jvmFlags = [
-				'-Dotel.exporter=jaeger',
-				'-Dotel.exporter.jaeger.endpoint=http://jaeger:14250',
-				'-Dotel.exporter.jaeger.service.name=rules',
-				'-Dapplication.name=rules',
-				'-javaagent:/opentelemetry-javaagent-all.jar'
-		]
-	}
+    container {
+        jvmFlags = [
+                '-Dotel.exporter=jaeger',
+                '-Dotel.exporter.jaeger.endpoint=http://jaeger:14250',
+                '-Dotel.exporter.jaeger.service.name=rules',
+                '-Dapplication.name=rules',
+                '-javaagent:/opentelemetry-javaagent-all.jar'
+        ]
+    }
 }
 
 jar{
@@ -97,18 +97,18 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
-    exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
 }
 
 publishing
         {
-    publications {
-        maven(MavenPublication) {
-            from(components.java)
+            publications {
+                maven(MavenPublication) {
+                    from(components.java)
+                }
+            }
         }
-    }
-}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
@@ -121,5 +121,15 @@ test {
 jacocoTestReport {
     reports {
         xml.enabled true
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.86
+            }
+        }
     }
 }
