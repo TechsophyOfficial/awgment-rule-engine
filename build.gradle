@@ -15,24 +15,8 @@ version = '1.2.0'
 description = 'tp-app-ruleEngine'
 
 repositories {
-    maven {
-        url = uri('https://repo.maven.apache.org/maven2/')
-    }
-    maven {
-        url = uri('https://nexus.techsophy.com/nexus/repository/maven-public/')
-        allowInsecureProtocol = true
-        credentials {
-            username=System.getenv('nexusUser')
-            password=System.getenv('nexusPassword')
-        }
-        metadataSources {
-            mavenPom()
-            artifact()
-            ignoreGradleMetadataRedirection()
-        }
-    }
     mavenCentral()
-
+    mavenLocal()
 }
 
 compileJava {
@@ -83,7 +67,7 @@ dependencies {
     implementation 'org.camunda.bpm.dmn:camunda-engine-dmn:7.17.0'
     implementation 'org.modelmapper:modelmapper:3.1.0'
 
-    implementation 'com.techsophy:id-generator:1.0.0@jar'
+    implementation 'com.techsophy:id-generator:2.0.0@jar'
     implementation 'com.techsophy:multitenancy-mongo:1.0.0@jar'
     implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'org.springframework:spring-aspects:5.3.20'
@@ -101,14 +85,14 @@ dependencies {
     }
 }
 
-publishing
-        {
-            publications {
-                maven(MavenPublication) {
-                    from(components.java)
-                }
-            }
-        }
+//publishing
+//        {
+//            publications {
+//                maven(MavenPublication) {
+//                    from(components.java)
+//                }
+//            }
+//        }
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
