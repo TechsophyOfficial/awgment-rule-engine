@@ -7,25 +7,25 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
-import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 import java.time.Instant;
 import java.util.*;
+
+import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.CLIENT_ROLES;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.GET;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.TEST_ACTIVE_PROFILE;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles(TEST_ACTIVE_PROFILE)
 @SpringBootTest
 class JWTRoleConverterTest
 {
-    @Mock
-    HttpServletRequest mockHttpServletRequest;
     @Mock
     ObjectMapper mockObjectMapper;
     @Mock
@@ -50,5 +50,16 @@ class JWTRoleConverterTest
         when(mockObjectMapper.convertValue(any(),eq(List.class))).thenReturn(list);
         Collection grantedAuthority =  jwtRoleConverter.convert(jwt);
         Assertions.assertNotNull(grantedAuthority);
+    }
+
+    @Test
+    void convertTestWhileThrowingException() throws JsonProcessingException {
+        Jwt jwt = Mockito.mock(Jwt.class);
+        List<String> awgmentRolesList = new ArrayList<>();
+        WebClient client = Mockito.mock(WebClient.class);
+        String userResponce = "";
+        Mockito.when(webClientWrapper.webclientRequest(any(), any(), any(), any())).thenReturn(userResponce);
+
+        Assertions.assertThrows(AccessDeniedException.class, () -> jwtRoleConverter.convert(jwt));
     }
 }
