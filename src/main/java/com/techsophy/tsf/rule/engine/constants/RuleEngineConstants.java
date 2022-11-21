@@ -22,7 +22,7 @@ public class RuleEngineConstants
 
     //JWTRoleConverter
     public static final String CLIENT_ROLES="clientRoles";
-    public static final String USER_INFO_URL= "techsophy-platform/protocol/openid-connect/userinfo";
+    public static final String USER_INFO_URL= "/protocol/openid-connect/userinfo";
     public static final String TOKEN_VERIFICATION_FAILED="Token verification failed";
 
     // Roles

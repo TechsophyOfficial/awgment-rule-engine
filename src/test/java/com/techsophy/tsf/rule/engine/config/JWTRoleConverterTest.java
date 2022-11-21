@@ -2,6 +2,7 @@ package com.techsophy.tsf.rule.engine.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techsophy.tsf.rule.engine.utils.TokenUtils;
 import com.techsophy.tsf.rule.engine.utils.WebClientWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,8 @@ class JWTRoleConverterTest
     ObjectMapper mockObjectMapper;
     @Mock
     WebClientWrapper webClientWrapper;
+    @Mock
+    TokenUtils tokenUtils;
     @InjectMocks
     JWTRoleConverter jwtRoleConverter;
 
@@ -48,6 +51,7 @@ class JWTRoleConverterTest
                 .thenReturn("abc");
         when(mockObjectMapper.readValue("abc",Map.class)).thenReturn(map);
         when(mockObjectMapper.convertValue(any(),eq(List.class))).thenReturn(list);
+        when(tokenUtils.getIssuerFromToken(anyString())).thenReturn("techsophy-platform");
         Collection grantedAuthority =  jwtRoleConverter.convert(jwt);
         Assertions.assertNotNull(grantedAuthority);
     }
@@ -59,7 +63,7 @@ class JWTRoleConverterTest
         WebClient client = Mockito.mock(WebClient.class);
         String userResponce = "";
         Mockito.when(webClientWrapper.webclientRequest(any(), any(), any(), any())).thenReturn(userResponce);
-
+        Mockito.when(tokenUtils.getIssuerFromToken(anyString())).thenReturn("techsophy-platform");
         Assertions.assertThrows(AccessDeniedException.class, () -> jwtRoleConverter.convert(jwt));
     }
 }
