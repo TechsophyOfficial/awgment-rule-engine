@@ -35,7 +35,6 @@ import java.util.Map;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.*;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.EMPTY_STRING;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.TEST_ID;
-import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.UPDATED_BY_NAME;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.*;
 
 @ActiveProfiles(TEST_ACTIVE_PROFILE)
@@ -76,10 +75,8 @@ class RuleEngineServiceExceptionTest
     {
         Map<String, Object> map = new HashMap<>();
         map.put(CREATED_BY_ID, NULL);
-        map.put(CREATED_BY_NAME, NULL);
         map.put(CREATED_ON, NULL);
         map.put(UPDATED_BY_ID, NULL);
-        map.put(UPDATED_BY_NAME, NULL);
         map.put(UPDATED_ON, NULL);
         map.put(TEST_ID, EMPTY_STRING);
         map.put(USER_NAME, USER_FIRST_NAME);
@@ -126,7 +123,7 @@ class RuleEngineServiceExceptionTest
         Mockito.when(mockUserDetails.getUserDetails())
                 .thenReturn(userList);
         RuleEngineSchema ruleEngineSchemaTest =new RuleEngineSchema(ID_VALUE, TEST_NAME,TEST_CONTENT,TEST_VERSION,TEST_DEPLOYMENT_NAME,
-                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,CREATED_BY_NAME,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT,UPDATED_BY_NAME);
+                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT);
         Assertions.assertThrows(UserDetailsIdNotFoundException.class,()-> mockRuleEngineServiceImpl.updateDRDDetails(ruleEngineSchemaTest));
     }
 

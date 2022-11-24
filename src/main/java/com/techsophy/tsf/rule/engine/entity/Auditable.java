@@ -22,6 +22,4 @@ public class Auditable
     @NotNull(message = CREATED_ON_NOT_NULL)
     private Instant createdOn;
     private Instant updatedOn;
-    private String createdByName;
-    private String updatedByName;
 }

@@ -73,8 +73,6 @@ public class RuleEngineConstants
     public static final Instant CREATED_ON_INSTANT =Instant.now();
     public static final String UPDATED_BY_ID_VALUE ="1";
     public static final Instant UPDATED_ON_INSTANT =Instant.now();
-    public static final String CREATED_BY_NAME="tejaswini";
-    public static final String UPDATED_BY_NAME="tejaswini";
     public static final String TEST_ID="1";
     public static final String TEST_NAME="abc";
     public static final String TEST_CONTENT="abc";
