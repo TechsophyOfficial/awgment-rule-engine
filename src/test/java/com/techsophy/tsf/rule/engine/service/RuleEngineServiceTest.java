@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.*;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.TEST_ID;
-import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.UPDATED_BY_NAME;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
@@ -89,10 +88,8 @@ class RuleEngineServiceTest
     {
         Map<String, Object> map = new HashMap<>();
         map.put(CREATED_BY_ID, NULL);
-        map.put(CREATED_BY_NAME, NULL);
         map.put(CREATED_ON, NULL);
         map.put(UPDATED_BY_ID, NULL);
-        map.put(UPDATED_BY_NAME, NULL);
         map.put(UPDATED_ON, NULL);
         map.put(USER_ID, BIGINTEGER_ID);
         map.put(USER_NAME, USER_FIRST_NAME);
@@ -187,7 +184,7 @@ class RuleEngineServiceTest
                 .thenReturn(userList);
         Mockito.when(mockRuleEngineRepository.existsById(BigInteger.valueOf(Long.parseLong(ID_VALUE)))).thenReturn(true);
         RuleEngineSchema ruleEngineSchemaTest =new RuleEngineSchema(ID_VALUE, TEST_NAME,TEST_CONTENT,TEST_VERSION,TEST_DEPLOYMENT_NAME,
-                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,CREATED_BY_NAME,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT,UPDATED_BY_NAME);
+                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT);
         RuleEngineDefinition existingRuleEngineDefinitionTest=new RuleEngineDefinition(BigInteger.valueOf(Long.parseLong(ID_VALUE)),TEST_NAME,TEST_CONTENT,TEST_VERSION,TEST_DEPLOYMENT_NAME);
         Mockito.when(mockRuleEngineRepository.findById(BigInteger.valueOf(Long.parseLong(ID_VALUE)))).thenReturn(existingRuleEngineDefinitionTest);
         mockRuleEngineServiceImpl.updateDRDDetails(ruleEngineSchemaTest);
@@ -201,7 +198,7 @@ class RuleEngineServiceTest
                 .thenReturn(userList);
         Mockito.when(mockRuleEngineRepository.existsById(BigInteger.valueOf(Long.parseLong(ID_VALUE)))).thenReturn(false);
         RuleEngineSchema ruleEngineSchemaTest =new RuleEngineSchema(ID_VALUE, TEST_NAME,TEST_CONTENT,TEST_VERSION,TEST_DEPLOYMENT_NAME,
-                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,CREATED_BY_NAME,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT,UPDATED_BY_NAME);
+                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT);
         Assertions.assertThrows(RuleEngineNotFoundException.class,()-> mockRuleEngineServiceImpl.updateDRDDetails(ruleEngineSchemaTest));
     }
 

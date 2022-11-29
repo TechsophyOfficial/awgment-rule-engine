@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.Map;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.*;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.ID;
-import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.UPDATED_BY_NAME;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doNothing;
@@ -112,7 +111,7 @@ class RuleEngineControllerTest
     {
         Mockito.when(mockTokenUtils.getIssuerFromToken(TOKEN)).thenReturn(TENANT);
         Mockito.when(mockRuleEngineService.getDRDDetailsById(ID)).thenReturn(new RuleEngineSchema(ID_VALUE, TEST_NAME,TEST_CONTENT,TEST_VERSION,TEST_DEPLOYMENT_NAME,
-                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,CREATED_BY_NAME,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT,UPDATED_BY_NAME));
+                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT));
         RequestBuilder requestBuilderTest = MockMvcRequestBuilders.get(BASE_URL + VERSION_V1 + DMN_BY_ID_URL, 1)
                 .with(jwtRead)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -126,7 +125,7 @@ class RuleEngineControllerTest
         Mockito.when(mockTokenUtils.getIssuerFromToken(TOKEN)).thenReturn(TENANT);
         boolean includeContent=false;
         RuleEngineSchema ruleEngineSchema=new RuleEngineSchema(ID_VALUE,TEST_NAME,TEST_CONTENT,TEST_VERSION,TEST_DEPLOYMENT_NAME,
-                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,CREATED_BY_NAME,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT,UPDATED_BY_NAME);
+                CREATED_BY_ID_VALUE,CREATED_ON_INSTANT,UPDATED_BY_ID_VALUE,UPDATED_ON_INSTANT);
         Mockito.when(mockRuleEngineService.getAllDMN(includeContent)).thenReturn(List.of(ruleEngineSchema));
         RequestBuilder requestBuilderTest = MockMvcRequestBuilders.get(BASE_URL + VERSION_V1 + DRD_URL).param(INCLUDE_CONTENT,"true")
                 .with(jwtRead)

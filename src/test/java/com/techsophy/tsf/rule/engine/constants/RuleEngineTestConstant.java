@@ -42,7 +42,6 @@ public class RuleEngineTestConstant
     public static final String USER_NAME="userName";
     public static final String USER_ID="id";
     public static final String UPDATED_ON="updatedOn";
-    public static final String UPDATED_BY_NAME="updatedByName";
     public static final String UPDATED_BY_ID="updatedById";
     public static final String CREATED_ON="createdOn";
     public static final String CREATED_BY_ID="createdById";

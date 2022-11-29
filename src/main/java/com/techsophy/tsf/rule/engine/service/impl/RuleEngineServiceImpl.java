@@ -54,8 +54,6 @@ public class RuleEngineServiceImpl implements RuleEngineService
 		ruleEngineDefinition.setCreatedOn(Instant.now());
 		ruleEngineDefinition.setUpdatedById(loggedInUserId);
 		ruleEngineDefinition.setUpdatedOn(Instant.now());
-		ruleEngineDefinition.setCreatedByName(loggedInUserDetails.get(USER_DEFINITION_FIRST_NAME).toString() + SPACE + loggedInUserDetails.get(USER_DEFINITION_LAST_NAME).toString());
-		ruleEngineDefinition.setUpdatedByName(loggedInUserDetails.get(USER_DEFINITION_FIRST_NAME).toString() + SPACE + loggedInUserDetails.get(USER_DEFINITION_LAST_NAME).toString());
 		this.ruleEngineRepository.save(ruleEngineDefinition);
 		return new RuleEngineResponse(String.valueOf(ruleEngineDefinition.getId()),ruleEngineDefinition.getDeploymentName(),ruleEngineDefinition.getVersion());
 	}
@@ -117,8 +115,8 @@ public class RuleEngineServiceImpl implements RuleEngineService
 		return new RuleEngineSchema(String.valueOf(ruleEngineDefinition.getId())
 				,ruleEngineDefinition.getName(),ruleEngineDefinition.getContent()
 				,ruleEngineDefinition.getVersion(),ruleEngineDefinition.getDeploymentName()
-				,String.valueOf(ruleEngineDefinition.getCreatedById()),ruleEngineDefinition.getCreatedOn(),ruleEngineDefinition.getCreatedByName()
-		,String.valueOf(ruleEngineDefinition.getUpdatedById()),ruleEngineDefinition.getUpdatedOn(),ruleEngineDefinition.getUpdatedByName());
+				,String.valueOf(ruleEngineDefinition.getCreatedById()),ruleEngineDefinition.getCreatedOn()
+		,String.valueOf(ruleEngineDefinition.getUpdatedById()),ruleEngineDefinition.getUpdatedOn());
 	}
 
 	public List<RuleEngineSchema> getAllDMN(boolean includeRuleContent)
@@ -132,8 +130,8 @@ public class RuleEngineServiceImpl implements RuleEngineService
 				RuleEngineSchema ruleEngineSchema=new RuleEngineSchema(String.valueOf(ruleEngineDefinition.getId()),
 						ruleEngineDefinition.getName(),ruleEngineDefinition.getContent()
 						,ruleEngineDefinition.getVersion(),ruleEngineDefinition.getDeploymentName()
-				,String.valueOf(ruleEngineDefinition.getCreatedById()),ruleEngineDefinition.getCreatedOn(),ruleEngineDefinition.getCreatedByName()
-						,String.valueOf(ruleEngineDefinition.getUpdatedById()),ruleEngineDefinition.getUpdatedOn(),ruleEngineDefinition.getUpdatedByName());
+				,String.valueOf(ruleEngineDefinition.getCreatedById()),ruleEngineDefinition.getCreatedOn()
+						,String.valueOf(ruleEngineDefinition.getUpdatedById()),ruleEngineDefinition.getUpdatedOn());
 				ruleEngineResponseList.add(ruleEngineSchema);
 			}
 			return ruleEngineResponseList;
@@ -145,8 +143,8 @@ public class RuleEngineServiceImpl implements RuleEngineService
 			{
 				RuleEngineSchema ruleEngineSchema=new RuleEngineSchema(String.valueOf(ruleEngineDefinition.getId()),ruleEngineDefinition.getName(),null,
 						ruleEngineDefinition.getVersion(),ruleEngineDefinition.getDeploymentName()
-				,String.valueOf(ruleEngineDefinition.getCreatedById()),ruleEngineDefinition.getCreatedOn(),ruleEngineDefinition.getCreatedByName()
-						,String.valueOf(ruleEngineDefinition.getUpdatedById()),ruleEngineDefinition.getUpdatedOn(),ruleEngineDefinition.getUpdatedByName());
+				,String.valueOf(ruleEngineDefinition.getCreatedById()),ruleEngineDefinition.getCreatedOn()
+						,String.valueOf(ruleEngineDefinition.getUpdatedById()),ruleEngineDefinition.getUpdatedOn());
 				ruleEngineResponseList.add(ruleEngineSchema);
 			}
 			return  ruleEngineResponseList;
@@ -171,10 +169,8 @@ public class RuleEngineServiceImpl implements RuleEngineService
 				,ruleEngineSchema.getName(),ruleEngineSchema.getContent(),ruleEngineSchema.getVersion(),ruleEngineSchema.getDeploymentName());
 		modifiedRuleDefinition.setCreatedById(existingRuleDefinition.getCreatedById());
 		modifiedRuleDefinition.setCreatedOn(existingRuleDefinition.getCreatedOn());
-		modifiedRuleDefinition.setCreatedByName(existingRuleDefinition.getCreatedByName());
 		modifiedRuleDefinition.setUpdatedById(loggedInUserId);
 		modifiedRuleDefinition.setUpdatedOn(Instant.now());
-		modifiedRuleDefinition.setUpdatedByName(loggedInUserDetails.get(USER_DEFINITION_FIRST_NAME).toString() + SPACE + loggedInUserDetails.get(USER_DEFINITION_LAST_NAME).toString());
 		ruleEngineRepository.save(modifiedRuleDefinition);
 		return new RuleEngineResponse(String.valueOf(modifiedRuleDefinition.getId()),modifiedRuleDefinition.getName(),modifiedRuleDefinition.getVersion());
 	}

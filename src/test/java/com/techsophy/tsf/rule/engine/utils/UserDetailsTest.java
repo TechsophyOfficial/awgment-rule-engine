@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.CREATED_BY_NAME;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -45,10 +44,8 @@ class UserDetailsTest
     {
         Map<String, Object> map = new HashMap<>();
         map.put(CREATED_BY_ID, NULL);
-        map.put(CREATED_BY_NAME, NULL);
         map.put(CREATED_ON, NULL);
         map.put(UPDATED_BY_ID, NULL);
-        map.put(UPDATED_BY_NAME, NULL);
         map.put(UPDATED_ON, NULL);
         map.put(ID, BIGINTEGER_ID);
         map.put(USER_NAME, USER_FIRST_NAME);
