@@ -2,22 +2,25 @@ package com.techsophy.tsf.rule.engine.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.techsophy.tsf.rule.engine.utils.TokenUtils;
 import com.techsophy.tsf.rule.engine.utils.WebClientWrapper;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.reactive.function.client.WebClient;
-import javax.servlet.http.HttpServletRequest;
+import java.nio.file.AccessDeniedException;
 import java.time.Instant;
 import java.util.*;
+
+import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.CLIENT_ROLES;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineConstants.GET;
 import static com.techsophy.tsf.rule.engine.constants.RuleEngineTestConstant.TEST_ACTIVE_PROFILE;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ActiveProfiles(TEST_ACTIVE_PROFILE)
@@ -25,11 +28,11 @@ import static org.mockito.Mockito.when;
 class JWTRoleConverterTest
 {
     @Mock
-    HttpServletRequest mockHttpServletRequest;
-    @Mock
     ObjectMapper mockObjectMapper;
     @Mock
     WebClientWrapper webClientWrapper;
+    @Mock
+    TokenUtils tokenUtils;
     @InjectMocks
     JWTRoleConverter jwtRoleConverter;
 
@@ -48,7 +51,19 @@ class JWTRoleConverterTest
                 .thenReturn("abc");
         when(mockObjectMapper.readValue("abc",Map.class)).thenReturn(map);
         when(mockObjectMapper.convertValue(any(),eq(List.class))).thenReturn(list);
+        when(tokenUtils.getIssuerFromToken(anyString())).thenReturn("techsophy-platform");
         Collection grantedAuthority =  jwtRoleConverter.convert(jwt);
         Assertions.assertNotNull(grantedAuthority);
+    }
+
+    @Test
+    void convertTestWhileThrowingException() throws JsonProcessingException {
+        Jwt jwt = Mockito.mock(Jwt.class);
+        List<String> awgmentRolesList = new ArrayList<>();
+        WebClient client = Mockito.mock(WebClient.class);
+        String userResponce = "";
+        Mockito.when(webClientWrapper.webclientRequest(any(), any(), any(), any())).thenReturn(userResponce);
+        Mockito.when(tokenUtils.getIssuerFromToken(anyString())).thenReturn("techsophy-platform");
+        Assertions.assertThrows(AccessDeniedException.class, () -> jwtRoleConverter.convert(jwt));
     }
 }
